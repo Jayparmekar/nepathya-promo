@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nepathya Fashion Design | Bridal &amp; Custom Couture</title>
+<meta name="description" content="Nepathya Fashion Design: made-to-measure bridal, festive and custom wear. Book a design consultation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: soft cream bands with curved edges; arched pink photo frames with a dried-flower sprig, colour-dot rail, serif headings over faded watermark words */
+:root{
+  --cream:#FDF1E6;
+  --paper:#FFFFFF;
+  --blush:#F3B2B4;
+  --coral:#D8777A;
+  --coral-dark:#B95A5E;
+  --wine:#5B1528;
+  --ink:#3B2A2E;
+  --muted:#6E5A5E;
+  --sand:#EBCDB9;
+  --display:'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --body:'Nunito Sans', 'Segoe UI', Arial, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);color:var(--wine);margin:0;line-height:1.1;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(20px, env(safe-area-inset-left,0px));padding-right:max(20px, env(safe-area-inset-right,0px))}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 28px;border-radius:999px;background:var(--coral);color:#fff;text-decoration:none;font-weight:700;font-size:14px;letter-spacing:.02em;border:0;cursor:pointer;font-family:var(--body);box-shadow:0 8px 20px rgba(216,119,122,.28);transition:background .2s, transform .2s}
+.btn:hover{background:var(--coral-dark);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--wine);box-shadow:none;border:1.5px solid var(--coral)}
+.btn.ghost:hover{background:var(--coral);color:#fff}
+.play{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--blush);display:inline-grid;place-items:center;color:var(--wine);text-decoration:none;background:var(--paper)}
+.play:hover{background:var(--blush)}
+
+/* Header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(253,241,230,.94);backdrop-filter:blur(8px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--cream)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--display);font-style:italic;font-weight:700;font-size:28px;color:var(--wine);text-decoration:none}
+.logo svg{width:22px;height:22px}
+.menu{display:flex;gap:32px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:600}
+.menu a{text-decoration:none;color:var(--ink)}
+.menu a:hover{color:var(--coral)}
+.burger{display:none;width:44px;height:44px;border:0;background:transparent;color:var(--wine);cursor:pointer}
+
+/* Sections */
+.band{background:var(--cream);position:relative}
+.curve-bottom{border-radius:0 0 50% 50% / 0 0 70px 70px}
+.curve-both{border-radius:50% 50% 50% 50% / 70px 70px 70px 70px}
+section{padding-block:96px}
+
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px;align-items:center}
+.eyebrow{font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral)}
+.watermark{position:relative}
+.watermark::before{content:attr(data-mark);position:absolute;left:0;top:-.55em;font-family:var(--display);font-weight:700;font-size:clamp(56px,9vw,110px);line-height:1;color:var(--wine);opacity:.06;white-space:nowrap;pointer-events:none}
+.center.watermark::before{left:50%;transform:translateX(-50%)}
+
+/* Hero */
+.hero{padding-block:56px 120px}
+.hero h1{font-size:clamp(40px,5.4vw,66px);font-weight:600}
+.hero .lead{color:var(--muted);max-width:44ch;margin-top:20px}
+.hero .actions{display:flex;align-items:center;gap:16px;margin-top:32px;flex-wrap:wrap}
+
+/* Photo frame */
+.frame{position:relative;max-width:420px;width:100%;justify-self:center}
+.frame.left{justify-self:start}
+.photo{aspect-ratio:4/5;width:100%;max-width:100%;background:var(--blush);border-radius:56px 120px 56px 0;overflow:hidden;position:relative;display:grid;place-items:end center}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo .ph{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--wine);opacity:.75;font-size:13px;font-weight:600;padding-bottom:28px;text-align:center}
+.photo .ph svg{width:120px;height:auto;opacity:.5}
+.sprig{position:absolute;left:-70px;bottom:-30px;width:150px;height:auto;pointer-events:none}
+.frame.left .sprig{left:auto;right:-80px;transform:scaleX(-1)}
+.tape{position:absolute;left:-30px;bottom:40px;width:90px;height:26px;background:rgba(235,205,185,.85);transform:rotate(-8deg)}
+.frame.left .tape{left:auto;right:-36px;transform:rotate(8deg)}
+.dots{position:absolute;right:-44px;top:50%;display:flex;flex-direction:column;gap:14px;transform:translateY(-50%)}
+.frame.left .dots{right:auto;left:-44px}
+.dots span{width:22px;height:22px;border-radius:50%}
+.dots span:nth-child(1){background:var(--sand)}
+.dots span:nth-child(2){background:var(--coral)}
+.dots span:nth-child(3){background:var(--wine)}
+.spark{position:absolute;color:var(--coral)}
+.spark.dark{color:var(--wine)}
+
+/* About + stats */
+.about h2,.expertise h2{font-size:clamp(34px,4vw,46px);font-weight:600}
+.about p{color:var(--muted);margin-top:20px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
+.stat{background:var(--cream);border-radius:28px 28px 28px 0;padding:18px 12px;text-align:center;box-shadow:0 10px 24px rgba(91,21,40,.07)}
+.stat b{display:block;font-family:var(--display);font-size:38px;line-height:1;color:var(--wine)}
+.stat span{font-size:13px;color:var(--muted)}
+.stat.hot{background:var(--coral)}
+.stat.hot b,.stat.hot span{color:#fff}
+
+/* Services */
+.services h2{font-size:clamp(34px,4vw,46px);font-weight:600;text-align:center}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:56px}
+.card{position:relative;text-align:center;padding:36px 22px;border-radius:40px 40px 40px 0;transition:background .25s, transform .25s, box-shadow .25s}
+.card svg{width:44px;height:44px;color:var(--wine)}
+.card h3{font-size:24px;margin-top:14px}
+.card p{font-size:14px;color:var(--muted);margin-top:8px}
+.card a{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;text-decoration:none;color:var(--wine)}
+.card:hover,.card.active{background:var(--coral);transform:translateY(-6px);box-shadow:0 18px 34px rgba(216,119,122,.35)}
+.card:hover *,.card.active *{color:#fff}
+
+/* Gallery */
+.gallery h2{font-size:clamp(34px,4vw,46px);font-weight:600;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:48px}
+.item{display:flex;flex-direction:column;gap:12px}
+.item .photo{border-radius:30px 30px 30px 0;aspect-ratio:3/4}
+.item:nth-child(even) .photo{background:var(--sand)}
+.item h3{font-size:22px}
+.item span{font-size:14px;color:var(--coral);font-weight:700}
+
+/* Expertise bars */
+.expertise p.copy{color:var(--muted);margin-top:20px}
+.bars{display:flex;flex-direction:column;gap:18px;margin-top:32px}
+.bar{background:var(--paper);border-radius:999px;height:22px;position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px var(--sand)}
+.bar i{position:absolute;inset:0 auto 0 0;border-radius:999px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-style:normal;font-size:11px;font-weight:700;color:var(--ink)}
+.bar:nth-child(1) i{background:var(--sand)}
+.bar:nth-child(2) i{background:var(--coral);color:#fff}
+.bar:nth-child(3) i{background:var(--wine);color:#fff}
+
+/* Offer */
+.offer{padding-block:72px}
+.offer-box{background:var(--wine);color:#fff;border-radius:60px 60px 60px 0;padding:56px clamp(24px,5vw,72px);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.offer-box h2{color:#fff;font-size:clamp(30px,3.6vw,44px);font-weight:600;max-width:20ch}
+.offer-box .eyebrow{color:var(--blush)}
+.offer-box .btn{background:var(--blush);color:var(--wine);box-shadow:none}
+.offer-box .btn:hover{background:#fff}
+
+/* Contact */
+.contact h2{font-size:clamp(34px,4vw,46px);font-weight:600}
+.contact .info{display:flex;flex-direction:column;gap:14px;margin-top:20px;color:var(--muted)}
+.contact .info b{color:var(--wine)}
+form{background:var(--paper);border-radius:40px 40px 40px 0;padding:36px;box-shadow:0 20px 40px rgba(91,21,40,.08);display:flex;flex-direction:column;gap:16px}
+label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--wine)}
+input,select,textarea{font:inherit;font-weight:400;color:var(--ink);padding:13px 16px;border:1px solid var(--sand);border-radius:14px;background:var(--cream);min-height:48px}
+textarea{resize:vertical;min-height:96px}
+.sent{background:var(--cream);border-radius:16px;padding:14px 16px;font-size:14px}
+
+footer{background:var(--wine);color:#F6DADB;padding-block:40px}
+footer .row{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;font-size:14px}
+footer .logo{color:#fff}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+
+.wa{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;width:58px;height:58px;border-radius:50%;background:#1F8F4E;display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.2)}
+.wa svg{width:30px;height:30px;color:#fff}
+
+@media (max-width: 900px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .cards,.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .frame,.frame.left{justify-self:center;max-width:340px}
+  .about .frame{order:-1}
+  .menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;background:var(--cream);padding:8px max(20px, env(safe-area-inset-left,0px)) 16px;box-shadow:0 12px 20px rgba(91,21,40,.08)}
+  .menu.open{display:flex}
+  .menu a{display:block;padding:12px 0}
+  .burger{display:inline-grid;place-items:center}
+  section{padding-block:72px}
+}
+@media (max-width: 520px){
+  .cards,.grid{grid-template-columns:minmax(0,1fr)}
+  .stats{gap:10px}
+  .stat b{font-size:30px}
+  .dots{right:-30px}
+  .frame.left .dots{left:-30px}
+  .sprig{width:110px;left:-40px}
+  .frame.left .sprig{right:-44px}
+  form{padding:24px}
+}
+/* ===== Futuristic motion layer ===== */
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes spin{to{--a:360deg}}
+@keyframes drift{to{transform:translate(60px,40px) scale(1.15)}}
+@keyframes holo{to{background-position:-250% 0}}
+@keyframes rise{from{transform:translateY(28px);filter:blur(8px)}}
+@keyframes float{50%{transform:translateY(-14px)}}
+@keyframes twinkle{50%{transform:scale(.55) rotate(45deg);opacity:.45}}
+@keyframes sweep{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(216,119,122,.55)}100%{box-shadow:0 0 0 14px rgba(216,119,122,0)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes scan{0%{top:-10%}100%{top:110%}}
+
+.progress{position:fixed;top:env(safe-area-inset-top,0px);left:0;width:100%;height:3px;z-index:40;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--coral),#C86BB0,var(--wine))}
+.logo svg{animation:spin-r 8s linear infinite}
+@keyframes spin-r{to{transform:rotate(360deg)}}
+
+.band.curve-bottom{overflow:hidden}
+.aurora{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.aurora::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(91,21,40,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(91,21,40,.07) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 70%);mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 70%)}
+.aurora i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.6;animation:drift 14s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--blush);right:4%;top:-80px}
+.aurora i:nth-child(2){width:320px;height:320px;background:#E9A6CF;left:-60px;bottom:-40px;animation-duration:18s}
+.aurora i:nth-child(3){width:260px;height:260px;background:#F7C9A8;left:40%;top:30%;animation-duration:22s}
+.hero .wrap{position:relative}
+
+.holo{background:linear-gradient(100deg,var(--wine) 0%,var(--coral) 30%,#B5559C 50%,var(--coral) 70%,var(--wine) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:holo 6s linear infinite}
+.hero .eyebrow,.hero h1,.hero .lead,.hero .actions{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+.hero h1{animation-delay:.12s}.hero .lead{animation-delay:.26s}.hero .actions{animation-delay:.4s}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.55);border:1px solid rgba(216,119,122,.35);backdrop-filter:blur(8px)}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--coral);animation:pulse 1.8s infinite}
+
+.frame{isolation:isolate;animation:float 7s ease-in-out infinite}
+.frame::before{content:"";position:absolute;inset:-12px;z-index:-1;border-radius:66px 130px 66px 0;padding:2px;background:conic-gradient(from var(--a),var(--coral),transparent 25%,#B5559C 50%,transparent 75%,var(--coral));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 6s linear infinite}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.4) 50%,transparent 65%);animation:sweep 5s ease-in-out infinite;pointer-events:none}
+.frame .photo::before{content:"";position:absolute;left:0;right:0;height:2px;background:rgba(255,255,255,.7);box-shadow:0 0 12px rgba(255,255,255,.9);animation:scan 4s linear infinite;pointer-events:none}
+.spark{animation:twinkle 3s ease-in-out infinite}
+.spark.dark{animation-delay:1.2s}
+.dots span:nth-child(2){animation:pulse 2s infinite}
+
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s}
+.btn:hover::after{transform:translateX(120%)}
+.play{animation:pulse 2s infinite}
+
+.ticker{background:var(--wine);color:var(--blush);overflow:hidden;padding-block:18px}
+.ticker div{display:flex;gap:48px;width:max-content;animation:marquee 28s linear infinite;font-family:var(--display);font-style:italic;font-size:26px;white-space:nowrap}
+.ticker b{color:var(--coral);font-style:normal}
+
+.stat{background:rgba(253,241,230,.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);transition:transform .3s}
+.stat:hover{transform:translateY(-6px)}
+.card{background:rgba(255,255,255,.4);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.75);overflow:hidden;transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:background .25s,box-shadow .25s,transform .15s}
+.card:hover,.card.active{--ty:-6px;transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty))}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.45),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::before{opacity:1}
+.card svg{transition:transform .4s}
+.card:hover svg{transform:translateY(-4px) scale(1.12)}
+.item .photo{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.item:hover .photo{transform:translateY(-8px) rotate(-1deg);box-shadow:0 24px 40px rgba(91,21,40,.15)}
+
+.bar i{transition:clip-path 1.6s cubic-bezier(.2,.7,.2,1)}
+.bar.pre-bar i{clip-path:inset(0 100% 0 0)}
+.offer-box::before{content:"";position:absolute;width:520px;height:520px;right:-160px;top:-220px;border-radius:50%;background:conic-gradient(from var(--a),var(--coral),#B5559C,var(--blush),var(--coral));filter:blur(70px);opacity:.5;animation:spin 10s linear infinite}
+.offer-box>*{position:relative}
+form{background:rgba(255,255,255,.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--coral);box-shadow:0 0 0 4px rgba(216,119,122,.18)}
+.wa{animation:pulse 2s infinite}
+
+.pre{opacity:0;transform:translateY(40px)}
+.in{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .pre{opacity:1;transform:none}
+  .bar.pre-bar i{clip-path:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 24 24"><path d="M12 0c.8 6.4 4.6 10.6 12 12-7.4 1.4-11.2 5.6-12 12-.8-6.4-4.6-10.6-12-12C7.4 10.6 11.2 6.4 12 0z" fill="currentColor"/></symbol>
+    <symbol id="sprig" viewBox="0 0 120 260">
+      <path d="M60 258 C58 200 62 150 70 110 C76 80 84 50 96 20" stroke="#6B4A3A" stroke-width="2.2" fill="none"/>
+      <path d="M66 150 C50 132 36 128 22 132" stroke="#6B4A3A" stroke-width="1.6" fill="none"/>
+      <path d="M72 100 C88 92 100 94 112 102" stroke="#6B4A3A" stroke-width="1.6" fill="none"/>
+      <path d="M78 70 C64 58 54 56 40 60" stroke="#6B4A3A" stroke-width="1.6" fill="none"/>
+      <g fill="#8C6A55">
+        <ellipse cx="96" cy="18" rx="6" ry="10" transform="rotate(25 96 18)"/>
+        <ellipse cx="86" cy="34" rx="5" ry="9" transform="rotate(-30 86 34)"/>
+        <ellipse cx="100" cy="40" rx="5" ry="9" transform="rotate(40 100 40)"/>
+        <ellipse cx="40" cy="60" rx="5" ry="9" transform="rotate(-70 40 60)"/>
+        <ellipse cx="52" cy="54" rx="4" ry="8" transform="rotate(-20 52 54)"/>
+        <ellipse cx="112" cy="102" rx="5" ry="9" transform="rotate(70 112 102)"/>
+        <ellipse cx="100" cy="92" rx="4" ry="8" transform="rotate(20 100 92)"/>
+        <ellipse cx="22" cy="132" rx="5" ry="9" transform="rotate(-80 22 132)"/>
+        <ellipse cx="36" cy="124" rx="4" ry="8" transform="rotate(-30 36 124)"/>
+        <ellipse cx="80" cy="56" rx="4" ry="7" transform="rotate(10 80 56)"/>
+      </g>
+    </symbol>
+    <symbol id="dress" viewBox="0 0 100 140"><path d="M38 6h24l-4 22 14 18-10 6 28 82H10l28-82-10-6 14-18z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Nepathya home"><svg aria-hidden="true"><use href="#spark" style="color:var(--coral)"/></svg>Nepathya</a>
+    <nav aria-label="Main">
+      <ul class="menu" id="menu">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="band curve-bottom">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <section class="hero">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow chip">New season · Now booking</p>
+          <h1 style="margin-top:18px">Your Style Tells Your Story. <span class="holo">We Design It.</span></h1>
+          <p class="lead">Made-to-measure bridal, festive and everyday couture, sketched around you and hand-finished in our studio.</p>
+          <div class="actions">
+            <a class="btn" href="#contact">Book a consultation</a>
+            <a class="play" href="#collection" aria-label="See the collection">
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="frame">
+          <svg class="spark" style="width:34px;height:34px;left:-56px;top:-10px" aria-hidden="true"><use href="#spark"/></svg>
+          <svg class="spark dark" style="width:18px;height:18px;left:-24px;top:22px" aria-hidden="true"><use href="#spark"/></svg>
+          <div class="photo">
+            <!-- Replace this placeholder with: <img src="images/hero.jpg" alt="Model wearing a Nepathya design"> -->
+            <div class="ph"><svg aria-hidden="true"><use href="#dress"/></svg>Hero photo: model in your signature piece</div>
+          </div>
+          <span class="tape" aria-hidden="true"></span>
+          <svg class="sprig" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+          <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="ticker" aria-label="Bridal, Festive, Couture, Custom tailoring, Styling">
+    <div aria-hidden="true">
+      <span>Bridal Couture</span><b>✦</b><span>Festive Edit</span><b>✦</b><span>Custom Tailoring</span><b>✦</b><span>Hand Embroidery</span><b>✦</b><span>Styling Consult</span><b>✦</b>
+      <span>Bridal Couture</span><b>✦</b><span>Festive Edit</span><b>✦</b><span>Custom Tailoring</span><b>✦</b><span>Hand Embroidery</span><b>✦</b><span>Styling Consult</span><b>✦</b>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap split">
+      <div class="frame left">
+        <div class="photo">
+          <div class="ph"><svg aria-hidden="true"><use href="#dress"/></svg>Photo: designer at work</div>
+        </div>
+        <span class="tape" aria-hidden="true"></span>
+        <svg class="sprig" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+        <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+      <div>
+        <h2 class="watermark" data-mark="About Us">Welcome To Nepathya</h2>
+        <p>Nepathya is a fashion design studio for people who want clothes made for them, not pulled off a rack. We sketch every piece around your occasion, your shape and your taste, then cut, stitch and embroider it by hand.</p>
+        <p style="margin-top:14px">From a bridal lehenga to a reception gown or a single statement blouse, you work directly with the designer from first sketch to final fitting.</p>
+        <div class="stats">
+          <div class="stat hot"><b>[XX]</b><span>Years of design</span></div>
+          <div class="stat"><b>[XX]</b><span>Brides dressed</span></div>
+          <div class="stat"><b>[XX]</b><span>Custom pieces</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <div class="band curve-both">
+    <section class="services" id="services">
+      <div class="wrap">
+        <h2 class="center watermark" data-mark="Our Services">We Design For Every Occasion</h2>
+        <div class="cards">
+          <article class="card">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M18 6h12l-2 10 8 8-6 3 6 15H12l6-15-6-3 8-8z"/></svg>
+            <h3>Bridal Couture</h3>
+            <p>Lehengas, sarees and gowns designed for your wedding day.</p>
+            <a href="#contact">Learn more →</a>
+          </article>
+          <article class="card active">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 40L40 8M14 8a6 6 0 1 1 0 12 6 6 0 0 1 0-12zM34 28a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/></svg>
+            <h3>Custom Tailoring</h3>
+            <p>Made-to-measure outfits cut and fitted to you.</p>
+            <a href="#contact">Learn more →</a>
+          </article>
+          <article class="card">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M24 4l5 13h14l-11 8 4 14-12-8-12 8 4-14L5 17h14z"/></svg>
+            <h3>Festive Wear</h3>
+            <p>Statement pieces for festivals, parties and family functions.</p>
+            <a href="#contact">Learn more →</a>
+          </article>
+          <article class="card">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="16" r="9"/><path d="M8 42c2-9 8-14 16-14s14 5 16 14"/></svg>
+            <h3>Styling Consult</h3>
+            <p>One-on-one sessions on colour, fabric and silhouette.</p>
+            <a href="#contact">Learn more →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- COLLECTION -->
+  <section class="gallery" id="collection">
+    <div class="wrap">
+      <h2 class="center watermark" data-mark="Collection">The Festive Edit</h2>
+      <div class="grid">
+        <div class="item"><div class="photo"><div class="ph"><svg aria-hidden="true"><use href="#dress"/></svg>Photo</div></div><h3>Bridal Lehenga</h3><span>From [PRICE]</span></div>
+        <div class="item"><div class="photo"><div class="ph"><svg aria-hidden="true"><use href="#dress"/></svg>Photo</div></div><h3>Reception Gown</h3><span>From [PRICE]</span></div>
+        <div class="item"><div class="photo"><div class="ph"><svg aria-hidden="true"><use href="#dress"/></svg>Photo</div></div><h3>Designer Saree</h3><span>From [PRICE]</span></div>
+        <div class="item"><div class="photo"><div class="ph"><svg aria-hidden="true"><use href="#dress"/></svg>Photo</div></div><h3>Indo-Western Set</h3><span>From [PRICE]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <div class="band curve-both">
+    <section class="expertise">
+      <div class="wrap split">
+        <div>
+          <h2 class="watermark" data-mark="Our Craft">Crafted With Care</h2>
+          <p class="copy">Every Nepathya piece goes through the same hands-on process: hand-picked fabric, detailed embroidery and as many fittings as it takes.</p>
+          <div class="bars" role="list">
+            <div class="bar" role="listitem"><i style="width:88%">Hand embroidery <span>88%</span></i></div>
+            <div class="bar" role="listitem"><i style="width:95%">Perfect fit <span>95%</span></i></div>
+            <div class="bar" role="listitem"><i style="width:90%">Fabric selection <span>90%</span></i></div>
+          </div>
+          <a class="btn" href="#contact" style="margin-top:32px">Start your design</a>
+        </div>
+        <div class="frame">
+          <svg class="spark" style="width:28px;height:28px;right:30px;top:-40px" aria-hidden="true"><use href="#spark"/></svg>
+          <div class="photo">
+            <div class="ph"><svg aria-hidden="true"><use href="#dress"/></svg>Photo: embroidery close-up or fitting</div>
+          </div>
+          <span class="tape" aria-hidden="true"></span>
+          <svg class="sprig" viewBox="0 0 120 260" aria-hidden="true"><use href="#sprig"/></svg>
+          <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- OFFER -->
+  <section class="offer">
+    <div class="wrap">
+      <div class="offer-box">
+        <div>
+          <p class="eyebrow">Limited time</p>
+          <h2 style="margin-top:10px">[YOUR OFFER] on bridal bookings before [DATE]</h2>
+        </div>
+        <a class="btn" href="#contact">Claim the offer</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="band curve-both" style="border-bottom-left-radius:0;border-bottom-right-radius:0">
+    <section class="contact" id="contact">
+      <div class="wrap split">
+        <div>
+          <h2 class="watermark" data-mark="Contact">Let's Design Yours</h2>
+          <div class="info">
+            <p>Tell us about your occasion and we'll call you back to set up a consultation.</p>
+            <p><b>WhatsApp / Phone:</b> [YOUR NUMBER]</p>
+            <p><b>Studio:</b> [STUDIO ADDRESS]</p>
+            <p><b>Hours:</b> [OPENING HOURS]</p>
+          </div>
+        </div>
+        <form id="enquiry" novalidate>
+          <label for="f-name">Your name<input id="f-name" name="name" type="text" autocomplete="name" required></label>
+          <label for="f-phone">Phone<input id="f-phone" name="phone" type="tel" autocomplete="tel" required></label>
+          <label for="f-need">I'm looking for
+            <select id="f-need" name="need">
+              <option>Bridal couture</option>
+              <option>Custom tailoring</option>
+              <option>Festive wear</option>
+              <option>Styling consultation</option>
+            </select>
+          </label>
+          <label for="f-msg">Occasion and date<textarea id="f-msg" name="msg" placeholder="e.g. Wedding in February, reception look"></textarea></label>
+          <button class="btn" type="submit">Send on WhatsApp</button>
+          <p class="sent" id="sent" hidden></p>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap row">
+    <a class="logo" href="#top"><svg aria-hidden="true"><use href="#spark" style="color:var(--blush)"/></svg>Nepathya</a>
+    <span>© 2026 Nepathya Fashion Design</span>
+    <span><a href="https://nepathyafashiondesign.com">nepathyafashiondesign.com</a></span>
+  </div>
+</footer>
+
+<a class="wa" id="wa" href="https://wa.me/" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z" fill="currentColor" stroke="none"/></svg>
+</a>
+
+<script>
+// Set your WhatsApp number here, country code first, digits only (e.g. "9779800000000").
+const WHATSAPP = "";
+
+const burger = document.getElementById('burger');
+const menu = document.getElementById('menu');
+burger.addEventListener('click', () => {
+  const open = menu.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+menu.addEventListener('click', e => { if (e.target.tagName === 'A') { menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); } });
+
+if (WHATSAPP) document.getElementById('wa').href = 'https://wa.me/' + WHATSAPP;
+
+// ---- Motion ----
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bar = document.getElementById('progress');
+const onScroll = () => {
+  const h = document.documentElement;
+  const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+  bar.style.transform = `scaleX(${p})`;
+};
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+if (!calm && 'IntersectionObserver' in window) {
+  const targets = document.querySelectorAll('main section:not(.hero) h2, .split > *, .card, .item, .stat, .offer-box, .bar');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target;
+      el.classList.add('in');
+      requestAnimationFrame(() => { el.classList.remove('pre'); el.classList.remove('pre-bar'); });
+      io.unobserve(el);
+    });
+  }, { threshold: 0.15 });
+  targets.forEach((el, i) => {
+    const r = el.getBoundingClientRect();
+    if (r.top < innerHeight) return; // already on screen: leave visible
+    el.classList.add(el.classList.contains('bar') ? 'pre-bar' : 'pre');
+    el.style.transitionDelay = (i % 4) * 90 + 'ms';
+    io.observe(el);
+  });
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.style.setProperty('--mx', x * 100 + '%');
+      card.style.setProperty('--my', y * 100 + '%');
+      card.style.setProperty('--ry', (x - .5) * 14 + 'deg');
+      card.style.setProperty('--rx', (.5 - y) * 14 + 'deg');
+    });
+    card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+  });
+}
+
+document.getElementById('enquiry').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target, out = document.getElementById('sent');
+  const name = f.name.value.trim(), phone = f.phone.value.trim();
+  if (!name || !phone) { out.hidden = false; out.textContent = 'Please add your name and phone number.'; return; }
+  const text = `Hi Nepathya, I'm ${name} (${phone}). I'm looking for: ${f.need.value}. ${f.msg.value.trim()}`;
+  out.hidden = false;
+  if (!WHATSAPP) { out.textContent = 'Preview only: the WhatsApp number has not been added yet.'; return; }
+  out.innerHTML = '';
+  const a = document.createElement('a');
+  a.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
+  a.textContent = 'Open WhatsApp to send your enquiry';
+  a.target = '_blank'; a.rel = 'noopener';
+  out.append(a);
+});
+</script>
+</body>
+</html>
