@@ -552,6 +552,7 @@ footer a:hover{color:#fff}
             </select>
           </label>
           <label for="f-msg">Message (optional)<textarea id="f-msg" name="msg" placeholder="e.g. Preferred batch timing, questions about fees"></textarea></label>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
           <button class="btn green" type="submit"><svg width="18" height="18" aria-hidden="true"><use href="#wa"/></svg>Send on WhatsApp</button>
           <p class="note" id="sent" hidden></p>
         </form>
@@ -619,18 +620,29 @@ if (!calm && 'IntersectionObserver' in window) {
   });
 }
 
+// Google Apps Script web app URL (saves each enquiry to the Google Sheet and emails the team).
+const SHEET_URL = "";
+
 document.getElementById('enquiry').addEventListener('submit', e => {
   e.preventDefault();
   const f = e.target, out = document.getElementById('sent');
   const name = f.name.value.trim(), phone = f.phone.value.trim();
   out.hidden = false;
+  if (f.website.value) return; // spam bot filled the hidden field
   if (!name || !phone) { out.textContent = 'Please add your name and phone number.'; return; }
   const text = `Hi Nepathya, I'm ${name} (${phone}). I'm interested in: ${f.need.value}. ${f.msg.value.trim()}`;
   const url = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
-  out.textContent = 'Opening WhatsApp… If it doesn\'t open, ';
-  const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'tap here to send your enquiry.';
-  out.append(a);
   window.open(url, '_blank', 'noopener');
+  if (SHEET_URL) {
+    fetch(SHEET_URL, {
+      method: 'POST', mode: 'no-cors', keepalive: true,
+      body: new URLSearchParams({ name, phone, interest: f.need.value, message: f.msg.value.trim(), page: location.href })
+    }).catch(() => {});
+  }
+  out.textContent = 'Thank you! We have received your enquiry. WhatsApp should open so you can send it to us too. If it doesn\'t, ';
+  const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'tap here.';
+  out.append(a);
+  f.reset();
 });
 </script>
 </body>
