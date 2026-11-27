@@ -1,0 +1,26 @@
+# Nepathya Student Portal – static site on Hostinger
+Options -Indexes
+DirectoryIndex index.html
+
+# HTTPS only
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Hide Hostinger's placeholder page
+RewriteRule ^default\.php$ / [L,R=302]
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Robots-Tag "noindex, nofollow"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  # Google Identity Services needs the popup to talk back to this page.
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' https://accounts.google.com/gsi/client https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; frame-src https://accounts.google.com/gsi/; connect-src 'self' https://accounts.google.com/gsi/ https://script.google.com https://script.googleusercontent.com; img-src 'self' data: blob: https:; object-src 'none'; base-uri 'self'; form-action 'self'"
+  <FilesMatch "\.(html|js)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

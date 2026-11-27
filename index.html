@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Nepathya Student Portal – Staff sign in</title>
+<link rel="icon" href="img/logo.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<div class="signin">
+  <div class="card">
+    <img class="brand" src="img/logo.png" alt="Nepathya Fashion Academy &amp; Boutique">
+    <h1>Student Portal</h1>
+    <p class="muted">Staff sign-in for admissions.</p>
+    <div id="setup" class="notice" hidden>The portal is not connected yet. Add the Google Client ID and the
+      web app URL to <code>js/config.js</code>.</div>
+    <div class="gbtn" id="gbtn"></div>
+    <div id="status" class="muted" aria-live="polite"></div>
+    <div id="error" class="err" hidden></div>
+  </div>
+</div>
+<footer class="f" style="background:#1f1f1f;color:#8a857c;margin:0">Nepathya Fashion Academy &amp; Boutique, Belagavi</footer>
+<script src="js/signin.js"></script>
+</body>
+</html>

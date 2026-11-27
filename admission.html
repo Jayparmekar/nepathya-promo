@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>New admission – Nepathya Student Portal</title>
+<link rel="icon" href="img/logo.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/fees.js"></script>
+<script src="js/admission.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+</head>
+<body x-data="admissionApp()">
+
+<div class="topbar">
+  <span class="logo"><img src="img/logo.png" alt="Nepathya"></span>
+  <span class="title">New admission</span>
+  <span class="who" x-cloak><span x-text="me.name"></span><br><span x-text="me.role"></span></span>
+  <button class="ghost small" @click="signOut()">Sign out</button>
+</div>
+
+<div class="wrap">
+  <div class="card" x-show="loading"><div class="spinner"></div><p class="muted" style="text-align:center">Loading…</p></div>
+  <div class="err" x-cloak x-show="loadError" x-text="loadError"></div>
+
+  <!-- ================= FORM ================= -->
+  <template x-if="!loading && !loadError && phase === 'form'">
+  <div class="card">
+    <div class="stepname" x-text="'Step ' + step + ' of 6 · ' + STEP_NAMES[step - 1]"></div>
+    <div class="progress"><template x-for="i in 6"><div :class="i <= step && 'on'"></div></template></div>
+
+    <!-- Step 1 -->
+    <section x-show="step === 1">
+      <h2>Student</h2>
+      <div class="grid two">
+        <label class="f full"><span class="req">Full name</span>
+          <input type="text" x-model="f.full_name" @input="f.full_name = f.full_name.toUpperCase()" autocomplete="off" maxlength="100"></label>
+        <label class="f"><span class="req">Date of birth</span><input type="date" x-model="f.dob" :max="new Date().toISOString().slice(0,10)"></label>
+        <div class="f"><label class="f"><span class="req">Gender</span></label>
+          <div class="chips"><template x-for="g in ['Female','Male','Other']"><label :class="f.gender === g && 'sel'"><input type="radio" :value="g" x-model="f.gender"><span x-text="g"></span></label></template></div></div>
+        <label class="f"><span class="req">Phone</span><input type="tel" inputmode="numeric" maxlength="10" x-model="f.phone" placeholder="10 digits"></label>
+        <div>
+          <label class="check"><input type="checkbox" x-model="f.same_wa"> WhatsApp same as phone</label>
+          <label class="f" x-show="!f.same_wa"><span class="req">WhatsApp</span><input type="tel" inputmode="numeric" maxlength="10" x-model="f.whatsapp"></label>
+        </div>
+        <label class="f">Alternate phone<input type="tel" inputmode="numeric" maxlength="10" x-model="f.alt_phone"></label>
+        <label class="f">Gmail<input type="email" x-model="f.email" autocomplete="off">
+          <div class="hint">Optional now; needed later for student login. The PDF is emailed here.</div></label>
+        <label class="f full"><span class="req">Address</span><textarea x-model="f.address" maxlength="300"></textarea></label>
+        <label class="f"><span class="req">Town / taluk</span><input type="text" x-model="f.town_taluk"></label>
+        <label class="f"><span class="req">District</span><input type="text" x-model="f.district"></label>
+        <label class="f"><span class="req">PIN</span><input type="text" inputmode="numeric" maxlength="6" x-model="f.pin"></label>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section x-show="step === 2">
+      <h2>Guardian &amp; background</h2>
+      <div class="grid two">
+        <div class="full"><label class="f"><span class="req">Relation</span></label>
+          <div class="chips"><template x-for="o in ['Parent','Guardian','Husband']"><label :class="f.guardian_relation === o && 'sel'"><input type="radio" :value="o" x-model="f.guardian_relation"><span x-text="o"></span></label></template></div></div>
+        <label class="f"><span class="req">Guardian name</span><input type="text" x-model="f.guardian_name" maxlength="100"></label>
+        <label class="f"><span class="req">Guardian phone</span><input type="tel" inputmode="numeric" maxlength="10" x-model="f.guardian_phone"></label>
+        <div class="full"><label class="f"><span class="req">Currently</span></label>
+          <div class="chips"><template x-for="o in ['Student','Working','Homemaker']"><label :class="f.currently === o && 'sel'"><input type="radio" :value="o" x-model="f.currently"><span x-text="o"></span></label></template></div></div>
+        <div class="full"><label class="f"><span class="req">Stitching experience</span></label>
+          <div class="chips"><template x-for="o in ['None','Basic','Good']"><label :class="f.experience === o && 'sel'"><input type="radio" :value="o" x-model="f.experience"><span x-text="o"></span></label></template></div></div>
+        <div class="full"><label class="f"><span class="req">Goal</span></label>
+          <div class="chips"><template x-for="o in ['Hobby','Job','Own boutique','Earn from home']"><label :class="f.goal === o && 'sel'"><input type="radio" :value="o" x-model="f.goal"><span x-text="o"></span></label></template></div></div>
+        <div class="full"><label class="f"><span class="req">Heard about us</span></label>
+          <div class="chips"><template x-for="o in ['Instagram','Facebook','Google','Friend or family','Walk-in','Other']"><label :class="f.heard_from === o && 'sel'"><input type="radio" :value="o" x-model="f.heard_from"><span x-text="o"></span></label></template></div></div>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section x-show="step === 3">
+      <h2>Course</h2>
+      <div class="grid two">
+        <div class="full"><label class="f"><span class="req">Course</span></label>
+          <div class="chips"><template x-for="c in settings.courses"><label :class="f.course === c.course && 'sel'"><input type="radio" :value="c.course" x-model="f.course"><span x-text="c.course"></span></label></template></div></div>
+        <label class="f full"><span class="req">Time slot</span>
+          <select x-model="f.slot"><option value="">Choose…</option>
+            <template x-for="s in settings.slots"><option :value="s.slot" x-text="slotLabel(s)" :selected="f.slot === s.slot"></option></template></select></label>
+        <label class="f"><span class="req">Training start date</span><input type="date" x-model="f.start_date"></label>
+        <label class="f">Counsellor
+          <select x-model="f.counsellor"><option value="">Choose…</option>
+            <template x-for="c in settings.counsellors"><option :value="c" x-text="c" :selected="f.counsellor === c"></option></template></select></label>
+        <label class="f">Last date<input type="text" readonly :value="dates ? fmtDate(dates.last_date) : ''"></label>
+        <label class="f">Practice extension until<input type="text" readonly :value="dates ? fmtDate(dates.extension_end) : ''"></label>
+      </div>
+    </section>
+
+    <!-- Step 4 -->
+    <section x-show="step === 4">
+      <h2>Fees &amp; EMI</h2>
+      <div class="notice" x-show="!f.course || !f.start_date">Choose the course and start date in step 3 first.</div>
+      <label class="f"><span class="req">Payment option</span></label>
+      <div class="chips">
+        <label :class="f.option === 'Full advance' && 'sel'"><input type="radio" value="Full advance" x-model="f.option">Full advance</label>
+        <label x-show="emiAllowed" :class="f.option === '50% advance + EMI' && 'sel'"><input type="radio" value="50% advance + EMI" x-model="f.option">50% advance + EMI</label>
+      </div>
+      <p class="hint" x-show="f.course && !emiAllowed">EMI is not offered for <span x-text="f.course"></span>.</p>
+
+      <template x-if="plan">
+        <div class="feebox">
+          <div>Total fee <span class="big" x-text="rupees(plan.total_fee)"></span></div>
+          <div>Advance due today: <b x-text="rupees(plan.advance_due)"></b></div>
+          <template x-if="plan.emis.length">
+            <div>
+              <table class="t">
+                <thead><tr><th>EMI</th><th>Amount</th><th>Due date</th></tr></thead>
+                <tbody>
+                  <template x-for="e in basePlan.emis" :key="e.emi_no">
+                    <tr>
+                      <td x-text="e.emi_no"></td>
+                      <td x-text="rupees(e.amount_due)"></td>
+                      <td>
+                        <input type="date" :value="emiDate(e)" @change="setEmiDate(e, $event.target.value)" :max="plan.extension_end">
+                        <input type="text" x-show="emiMoved(e)" placeholder="Reason for the new date (required)"
+                          :value="(f.due_dates[e.emi_no] || {}).reason || ''" @input="setEmiReason(e, $event.target.value)">
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+              <p class="hint">Amounts are fixed. A due date can be moved only with a reason, and all EMIs must be due by <span x-text="fmtDate(plan.extension_end)"></span>.</p>
+              <div class="err" x-show="plan._error" x-text="plan._error"></div>
+            </div>
+          </template>
+          <p class="hint">Shown for checking only; the server recalculates the fees from Settings.</p>
+        </div>
+      </template>
+
+      <h3>Advance paid today</h3>
+      <div class="grid two">
+        <label class="f">Amount (₹)<input type="number" min="0" step="1" inputmode="numeric" x-model="f.advance_paid"></label>
+        <label class="f">Date<input type="date" x-model="f.advance_date"></label>
+        <label class="f">Mode
+          <select x-model="f.advance_mode"><option value="">Choose…</option>
+            <template x-for="m in ['Cash','UPI','Cheque','Bank transfer','Card']"><option :value="m" x-text="m" :selected="f.advance_mode === m"></option></template></select></label>
+        <label class="f">UPI ref / cheque no. + bank<input type="text" x-model="f.advance_ref" maxlength="100"></label>
+        <label class="f">Receipt no.<input type="text" x-model="f.advance_receipt_no" maxlength="50"></label>
+      </div>
+    </section>
+
+    <!-- Step 5 -->
+    <section x-show="step === 5">
+      <h2>Documents</h2>
+      <p class="muted">JPG, PNG or PDF. Photos are compressed to about 1 MB. Documents are kept private in the academy's
+        Google Drive and used only for this admission; the Aadhaar copy goes to a restricted folder.</p>
+      <template x-for="t in REQUIRED_DOCS" :key="t">
+        <div class="doc">
+          <div class="head"><span x-text="t"></span>
+            <span class="state ok" x-show="files[t]" x-text="files[t] ? '✓ ' + sizeText(files[t].size) : ''"></span></div>
+          <input type="file" accept="image/jpeg,image/png,application/pdf" @change="pickFile(t, $event)">
+          <div class="state err" x-show="fileMsg[t]" x-text="fileMsg[t]"></div>
+          <template x-if="t === 'Aadhaar'">
+            <label class="f" style="margin-top:8px">Last 4 digits of Aadhaar
+              <input type="text" inputmode="numeric" maxlength="4" x-model="aadhaar_last4" autocomplete="off">
+              <div class="hint">Only the last 4 digits are stored. Never type the full number.</div></label>
+          </template>
+          <label class="f" style="margin-top:8px" x-show="!files[t]">Pending, will give by
+            <input type="date" :value="f.pending[t] || ''" @change="f.pending = Object.assign({}, f.pending, {[t]: $event.target.value})"></label>
+          <button class="ghost small" x-show="files[t]" @click="removeFile(t)" style="margin-top:8px">Remove</button>
+        </div>
+      </template>
+      <template x-for="(o, i) in others" :key="i">
+        <div class="doc"><div class="head">Other document <span class="state ok" x-show="o.blob" x-text="o.blob ? '✓ ' + sizeText(o.size) : ''"></span></div>
+          <input type="file" accept="image/jpeg,image/png,application/pdf" @change="pickFile('Other', $event, i)">
+          <div class="state err" x-show="fileMsg['Other' + i]" x-text="fileMsg['Other' + i]"></div></div>
+      </template>
+      <button class="ghost small" @click="addOther()">+ Add another document</button>
+    </section>
+
+    <!-- Step 6 -->
+    <section x-show="step === 6">
+      <h2>Permissions &amp; review</h2>
+      <label class="check"><input type="checkbox" x-model="f.consent_whatsapp"> Add me to the academy WhatsApp group</label>
+      <label class="check"><input type="checkbox" x-model="f.consent_media"> Photos/videos of me and my work may be used on social media and display</label>
+      <label class="check"><input type="checkbox" x-model="f.consent_testimonial"> I agree to give feedback/testimonial on my last day</label>
+      <label class="check"><input type="checkbox" x-model="f.consent_events"> Send me monthly competition/workshop updates</label>
+      <label class="check"><input type="checkbox" x-model="f.consent_declaration"> <span><b>Declaration:</b> the information given is true. I agree that my details and documents are stored by the academy for my admission, fees, attendance and certificate.</span></label>
+      <label class="check"><input type="checkbox" x-model="f.consent_fee_terms"> <span><b>I agree to the Fee Payment Term Agreement</b> for the option chosen.</span></label>
+
+      <h3>Summary</h3>
+      <dl class="review">
+        <dt>Name</dt><dd x-text="f.full_name"></dd>
+        <dt>DOB · Gender</dt><dd x-text="fmtDate(f.dob) + ' · ' + f.gender"></dd>
+        <dt>Phone · WhatsApp</dt><dd x-text="f.phone + ' · ' + (f.same_wa ? f.phone : f.whatsapp)"></dd>
+        <dt>Email</dt><dd x-text="f.email || '—'"></dd>
+        <dt>Address</dt><dd x-text="f.address + ', ' + f.town_taluk + ', ' + f.district + ' – ' + f.pin"></dd>
+        <dt>Guardian</dt><dd x-text="f.guardian_relation + ': ' + f.guardian_name + ' · ' + f.guardian_phone"></dd>
+        <dt>Background</dt><dd x-text="[f.currently, f.experience + ' experience', f.goal, 'via ' + f.heard_from].join(' · ')"></dd>
+        <dt>Course</dt><dd x-text="f.course + ' · ' + f.slot + ' · from ' + fmtDate(f.start_date)"></dd>
+        <dt>Fee</dt><dd x-text="plan ? f.option + ' · ' + rupees(plan.total_fee) + ' · advance ' + rupees(plan.advance_due) : '—'"></dd>
+        <dt>Advance paid</dt><dd x-text="(Number(f.advance_paid) || 0) > 0 ? rupees(f.advance_paid) + ' · ' + f.advance_mode : 'Nothing yet'"></dd>
+        <dt>Documents</dt><dd x-text="REQUIRED_DOCS.map(t => t + (files[t] ? ' ✓' : ' (pending ' + fmtDate(f.pending[t]) + ')')).join(', ')"></dd>
+      </dl>
+    </section>
+
+    <div class="err" x-show="error" x-text="error"></div>
+    <div class="nav">
+      <button class="ghost" @click="back()" :disabled="step === 1">Back</button>
+      <button x-show="step < 6" @click="next()">Next</button>
+      <button x-show="step === 6" class="gold" @click="submit()">Submit admission</button>
+    </div>
+  </div>
+  </template>
+
+  <!-- ================= SUBMITTING ================= -->
+  <template x-if="phase === 'submitting'">
+    <div class="card" style="text-align:center">
+      <div class="spinner"></div>
+      <p x-text="progress"></p>
+      <p class="muted">Please don't close this page.</p>
+    </div>
+  </template>
+
+  <!-- ================= DONE ================= -->
+  <template x-if="phase === 'done' && result">
+    <div class="card">
+      <h2>Admission saved</h2>
+      <div>Student ID</div>
+      <div class="big-id" x-text="result.student_id"></div>
+      <div class="okbox" x-show="emailedTo.length" x-text="'PDF emailed to ' + emailedTo.join(', ')"></div>
+
+      <template x-if="result.plan">
+        <div class="feebox">
+          <div><b x-text="result.plan.option"></b> · total <b x-text="rupees(result.plan.total_fee)"></b> · advance <b x-text="rupees(result.plan.advance_due)"></b>
+            (<span x-text="result.advance_status"></span>)</div>
+          <table class="t" x-show="result.plan.emis.length">
+            <thead><tr><th>EMI</th><th>Amount</th><th>Due</th></tr></thead>
+            <tbody><template x-for="e in result.plan.emis" :key="e.emi_no">
+              <tr><td x-text="e.emi_no"></td><td x-text="rupees(e.amount_due)"></td><td x-text="fmtDate(e.due_date)"></td></tr>
+            </template></tbody>
+          </table>
+        </div>
+      </template>
+
+      <h3>Documents</h3>
+      <p class="muted" x-show="!uploads.length">No files attached; all documents marked pending.</p>
+      <template x-for="u in uploads">
+        <div class="doc"><div class="head"><span x-text="u.doc_type"></span>
+          <span class="state" :class="u.state === 'done' ? 'ok' : (u.state === 'failed' ? 'err' : '')"
+            x-text="u.state === 'done' ? '✓ Uploaded' : (u.state === 'failed' ? 'Failed' : 'Uploading…')"></span></div>
+          <div class="state err" x-show="u.error" x-text="u.error"></div>
+          <button class="small" x-show="u.state === 'failed'" @click="retryUpload(u)">Retry upload</button>
+        </div>
+      </template>
+
+      <div class="err" x-show="finaliseError" x-text="'PDF/email not done: ' + finaliseError"></div>
+      <div class="nav">
+        <button class="ghost" @click="finalise()" x-text="finaliseError ? 'Retry PDF & email' : 'Rebuild PDF & resend'"></button>
+        <button class="gold" @click="printPdf()" :disabled="!pdfUrl">Print PDF</button>
+      </div>
+      <div class="nav"><span></span><button @click="newAdmission()">New admission</button></div>
+    </div>
+  </template>
+</div>
+
+<!-- Session expired -->
+<div class="overlay" x-cloak x-show="reauthOpen">
+  <div class="card">
+    <h2>Session expired</h2>
+    <p class="muted">Please sign in again. Your typing is kept.</p>
+    <div class="gbtn" id="reauth-btn" style="display:flex;justify-content:center;margin:16px 0"></div>
+  </div>
+</div>
+</body>
+</html>
