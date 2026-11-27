@@ -2,6 +2,9 @@
 Options -Indexes
 DirectoryIndex index.html
 
+# Never serve the Git folder or other dotfiles
+RedirectMatch 404 /\.(git|github)(/|$)
+
 # HTTPS only
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
